@@ -1,13 +1,24 @@
 ﻿
 
 Configuration Package {
+<#
+.Notes 
+    Package configuration uses a DSC resouce that functions as a chocoaltey installer, with compliance aspects.
+    DSC resource uses Uninstall Keys, Services, and Path tests to determine if an app is present, along with Choco log for determining if previously installed. 
+    The set of this potentially needs to be scheduled. Set could potentially create a scheduled task for a specific time. 
+    This would remove the configuration of the packages out of DSC - and potentially could run under a separete user (Altearnativley you could run the config under it, but that would involve duplicating the scheduled tasks system. 
 
+    
+#>
     Param(
         $PackageName,
         $Version,
-        $OtherParams
+        $OtherParams,
+        $Schedule
     )
 
+
+    # Commented out as it does not exist yet.
     #  ChocoPackage $PackageName+$Version {
     #  
     #      PackageName = $PackageName
@@ -31,10 +42,23 @@ Configuration Package {
 
 function New-SystemPackage {
 
+<#
+.Notes
+    Function is a wrapper for the configuration. Will eventually take pipeline input and trap / logging functionality.
+  - Potentially, when a nodes configuration is build with packages, a check-in to an external system is needed to check for scheduling aspects. 
+ |  When can this be applied? can it be done out of hours, or at user specified windows. 
+  - > This might be better higher up, at Get-SystemPackages    
+     
+
+
+
+#>
+
     param(
         $PackageName,
         $Version,
-        $OtherParams
+        $OtherParams,
+        $Schedule
 
     )
 
@@ -61,7 +85,9 @@ function Get-SystemPackages {
 
     Begin {
     
-        
+        # This step would potentially load information from PackageManager DB.
+        # PackageManager DB would dictate what Choco Package, and search criteria the compliance check needs.
+        # Using MachineDB, we can create batches of packages to categories. 
 
 
     }
