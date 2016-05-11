@@ -33,7 +33,6 @@ Configuration Package {
 
 
     File $PackageName {
-
         DestinationPath = $PackageName
     }
 
@@ -72,7 +71,15 @@ function New-SystemPackage {
 
 
 function Get-SystemPackages {
+<#
+.Notes
+    This function is used to build the nodes pacakges, obtaining package manifests from PackageManager DB, using the MachineDB category, or potentially Systems Compliance Context.
+    
+    using the New-SystemPackage functions 
 
+
+
+#>
 
     [cmdletbinding()]
     param(
@@ -94,10 +101,18 @@ function Get-SystemPackages {
 
     Process {
 
+
+        # In practice, this enumeration would be over a package manifest. With the PSItem being the individual package details, obtained from a package store.
+        # Potentially converted from a JSON object, recieved by an interface from the store.
         1..10 | % { 
 
-
+            # Look at using pipeline input for new-systempackage cmdlet
             New-SystemPackage -PackageName "C:\temp$_"
+
+            # Desired
+            # $Package = $_
+            # # Log($Package)
+            # $Package |  New-SystemPackage
         }
 
 
