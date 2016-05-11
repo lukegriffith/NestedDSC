@@ -8,7 +8,7 @@ Configuration Package {
         $OtherParams
     )
 
-    #  GrChocoPackage $PackageName+$Version {
+    #  ChocoPackage $PackageName+$Version {
     #  
     #      PackageName = $PackageName
     #      Version = $Version
